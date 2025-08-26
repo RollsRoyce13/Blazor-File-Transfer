@@ -1,4 +1,5 @@
 using File_Upload.Components;
+using File_Upload.Services;
 
 namespace File_Upload
 {
@@ -11,6 +12,8 @@ namespace File_Upload
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            builder.Services.AddScoped<IFileUpload, FileUpload>();
 
             var app = builder.Build();
 

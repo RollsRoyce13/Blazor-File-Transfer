@@ -12,9 +12,32 @@ namespace File_Upload.Services
         private IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<FileUpload> _logger;
 
-        public Task UploadFile(IBrowserFile file)
+        public FileUpload(IWebHostEnvironment webHostEnvironment, ILogger<FileUpload> logger)
         {
-            throw new NotImplementedException();
+            _webHostEnvironment = webHostEnvironment;
+            _logger = logger;
+        }
+
+        public async Task UploadFile(IBrowserFile file)
+        {
+            if (file != null)
+            {
+                try
+                {
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", file.Name);
+
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var fileStream = File.Create(uploadPath);
+                        await stream.CopyToAsync(fileStream);
+                        fileStream.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.ToString());
+                }
+            }
         }
     }
 }
