@@ -1,4 +1,4 @@
-# 🚀 Blazor File Upload & Download Demo
+# 🚀 Blazor File Transfer
 
 A modern Blazor Server app for uploading and downloading files with preview support. Built on .NET 8.  
 Easily upload images and PDFs, view previews, and download files with a single click!  
